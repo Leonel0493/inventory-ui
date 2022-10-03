@@ -7,10 +7,6 @@ import { useSelector } from "react-redux";
 function SideBar() {
   const sidebarState = useSelector((state) => state.sidebar.show);
 
-  const showSidebar =
-    "w-72 h-full overflow-y-auto bg-sky-900 text-white transition";
-  const hideSidebar = "hidden transition";
-
   return (
     <aside
       className={`h-full overflow-y-auto bg-sky-900 text-white ease-in-out duration-300 ${
