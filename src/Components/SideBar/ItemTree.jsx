@@ -5,7 +5,6 @@ import ItemMenu from "./ItemMenu";
 
 const ItemTree = ({ icon, itemName, childItems }) => {
   const [show, setShow] = useState(false);
-  console.log(childItems);
 
   return (
     <li
@@ -39,7 +38,11 @@ const ItemTree = ({ icon, itemName, childItems }) => {
           ${show ? "flex flex-col items-center justify-center" : "hidden"}`}
       >
         {childItems.map((item) => (
-          <ItemMenu icon={faCircleNotch} itemName={item.itemName} />
+          <ItemMenu
+            key={item.id}
+            icon={faCircleNotch}
+            itemName={item.itemName}
+          />
         ))}
       </ul>
     </li>
