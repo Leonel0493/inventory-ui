@@ -1,5 +1,6 @@
 import React from "react";
 import { Form, Formik } from "formik";
+import swal from "sweetalert";
 import { createCountryRequest } from "../../../api/countries.api";
 
 const AddCountryFrom = () => {
@@ -18,6 +19,7 @@ const AddCountryFrom = () => {
 
         try {
           const resp = await createCountryRequest(country);
+          swal("Good job!", "You saved a country!", "success");
           actions.resetForm();
         } catch (error) {
           console.log(error.message);
