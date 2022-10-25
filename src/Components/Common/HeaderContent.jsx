@@ -1,4 +1,5 @@
 import React from "react";
+
 import SuccessBtn from "./SuccessBtn";
 
 const HeaderContent = ({ title, icon, btnText }) => {
