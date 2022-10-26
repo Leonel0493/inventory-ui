@@ -12,18 +12,18 @@ import ItemTree from "./ItemTree";
 function SideBar() {
   const sidebarState = useSelector((state) => state.sidebar.show);
 
-  const childItems = [
+  const locationItems = [
     {
       id: 1,
-      itemName: "Child 1",
+      itemName: "Countries",
     },
     {
       id: 2,
-      itemName: "Child 2",
+      itemName: "Regions",
     },
     {
       id: 3,
-      itemName: "Child 3",
+      itemName: "Cities",
     },
   ];
 
@@ -35,18 +35,12 @@ function SideBar() {
     >
       <SideBarHeader />
       <ul className="flex flex-col items-center justify-center">
-        <ItemMenu icon={faLocation} itemName="Location" />
+        <ItemTree
+          icon={faLocation}
+          itemName="Location"
+          childItems={locationItems}
+        />
         <ItemMenu icon={faPerson} itemName="Personal Information" />
-        <ItemTree
-          icon={faCameraRetro}
-          itemName="Images"
-          childItems={childItems}
-        />
-        <ItemTree
-          icon={faCameraRetro}
-          itemName="Images"
-          childItems={childItems}
-        />
       </ul>
     </aside>
   );
