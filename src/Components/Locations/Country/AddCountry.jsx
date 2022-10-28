@@ -2,11 +2,11 @@ import React from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCircleXmark } from "@fortawesome/free-solid-svg-icons";
-import { changeCountryModal } from "../../../features/locationModals/locationSlice";
+import { changeCountryModal } from "../../../features/countries/countriesSlice";
 import AddCountryFrom from "./AddCountryFrom";
 
 const AddCountry = () => {
-  const modalState = useSelector((state) => state.location.showCountryModal);
+  const modalState = useSelector((state) => state.countries.showCountryModal);
   const dispatch = useDispatch();
 
   const handleModal = (e) => {

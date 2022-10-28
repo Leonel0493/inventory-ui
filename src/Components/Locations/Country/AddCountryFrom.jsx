@@ -1,12 +1,20 @@
 import React from "react";
 import { Form, Formik } from "formik";
 import { useDispatch } from "react-redux";
-import { changeCountryModal } from "../../../features/locationModals/locationSlice";
+import {
+  changeCountryModal,
+  getAllCountries,
+} from "../../../features/countries/countriesSlice";
 import swal from "sweetalert";
-import { createCountryRequest } from "../../../api/countries.api";
+import { createCountryRequest, getCountries } from "../../../api/countries.api";
 
 const AddCountryFrom = () => {
   const dispatch = useDispatch();
+
+  const loadCountries = async () => {
+    const resp = await getCountries();
+    dispatch(getAllCountries(resp.data));
+  };
 
   return (
     <Formik
@@ -25,6 +33,7 @@ const AddCountryFrom = () => {
           const resp = await createCountryRequest(country);
           dispatch(changeCountryModal("parameter"));
           swal("Good job!", "You saved a country!", "success");
+          loadCountries();
           actions.resetForm();
         } catch (error) {
           console.log(error.message);

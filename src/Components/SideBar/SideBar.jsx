@@ -1,9 +1,5 @@
 import React from "react";
-import {
-  faLocation,
-  faPerson,
-  faCameraRetro,
-} from "@fortawesome/free-solid-svg-icons";
+import { faLocation, faPerson } from "@fortawesome/free-solid-svg-icons";
 import SideBarHeader from "./SideBarHeader";
 import ItemMenu from "./ItemMenu";
 import { useSelector } from "react-redux";
