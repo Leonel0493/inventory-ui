@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faAngleLeft, faCircleNotch } from "@fortawesome/free-solid-svg-icons";
 import ItemMenu from "./ItemMenu";
+import { Link } from "react-router-dom";
 
 const ItemTree = ({ icon, itemName, childItems }) => {
   const [show, setShow] = useState(false);
@@ -38,11 +39,13 @@ const ItemTree = ({ icon, itemName, childItems }) => {
           ${show ? "flex flex-col items-center justify-center" : "hidden"}`}
       >
         {childItems.map((item) => (
-          <ItemMenu
-            key={item.id}
-            icon={faCircleNotch}
-            itemName={item.itemName}
-          />
+          <Link to={item.path}>
+            <ItemMenu
+              key={item.id}
+              icon={faCircleNotch}
+              itemName={item.itemName}
+            />
+          </Link>
         ))}
       </ul>
     </li>

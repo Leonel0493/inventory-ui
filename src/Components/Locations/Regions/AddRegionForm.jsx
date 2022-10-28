@@ -1,43 +1,30 @@
-import React from "react";
 import { Form, Formik } from "formik";
-import { useDispatch } from "react-redux";
-import {
-  changeCountryModal,
-  getAllCountries,
-} from "../../../features/countries/countriesSlice";
-import swal from "sweetalert";
-import { createCountryRequest, getCountries } from "../../../api/countries.api";
+import { useDispatch, useSelector } from "react-redux";
+import { changeRegionModal } from "../../../features/regions/regionsSlice";
 
-const AddCountryFrom = () => {
+const AddRegionForm = () => {
   const dispatch = useDispatch();
+  const countries = useSelector((state) => state.countries.countries);
 
-  const loadCountries = async () => {
-    const resp = await getCountries();
-    dispatch(getAllCountries(resp.data));
+  const handleModal = (e) => {
+    e.preventDefault();
+    dispatch(changeRegionModal("param"));
   };
 
   return (
     <Formik
       initialValues={{
-        country: "",
-        countryCode: "",
+        region: "",
+        idCountry: "",
       }}
       onSubmit={async (values, actions) => {
-        const country = {
-          country: values.country,
-          countryCode: values.countryCode,
-          createdBy: "leonr",
+        const region = {
+          department: values.region,
+          idCountry: values.idCountry,
+          createdBy: "leon04",
         };
 
-        try {
-          const resp = await createCountryRequest(country);
-          dispatch(changeCountryModal(resp));
-          swal("Good job!", "You saved a country!", "success");
-          loadCountries();
-          actions.resetForm();
-        } catch (error) {
-          console.log(error.message);
-        }
+        console.log(region);
       }}
     >
       {({ handleChange, handleSubmit, values }) => (
@@ -45,29 +32,32 @@ const AddCountryFrom = () => {
           <div className="w-full py-2 px-4">
             <div className="w-full px-3 mb-3 flex flex-col">
               <label htmlFor="" className="text-base mb-1">
-                Country
+                Region
               </label>
               <input
                 type="text"
-                name="country"
+                name="region"
                 className="px-2 py-1 border rounded-md border-gray-200"
                 onChange={handleChange}
                 value={values.country}
               />
             </div>
+
             <div className="w-full px-3 mb-3 flex flex-col">
               <label htmlFor="" className="text-base mb-1">
-                Country Code
+                Country
               </label>
-              <input
-                type="text"
-                name="countryCode"
+              <select
+                name="idCountry"
                 className="px-2 py-1 border rounded-md border-gray-200"
                 onChange={handleChange}
-                value={values.countryCode}
-                maxLength="4"
-              />
+              >
+                {countries.map((country) => (
+                  <option value={country.idCountry}>{country.Country}</option>
+                ))}
+              </select>
             </div>
+
             <div className="w-full px-3 mb-3 flex flex-row-reverse">
               <button
                 className="w-fit rounded-md py-1 px-4 bg-green-700 hover:bg-green-600 text-white"
@@ -83,4 +73,4 @@ const AddCountryFrom = () => {
   );
 };
 
-export default AddCountryFrom;
+export default AddRegionForm;

@@ -2,8 +2,10 @@ import { faCirclePlus } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { changeCountryModal } from "../../../features/countries/countriesSlice";
-import { getAllCountries } from "../../../features/countries/countriesSlice";
+import {
+  changeCountryModal,
+  getAllCountries,
+} from "../../../features/countries/countriesSlice";
 import { getCountries } from "../../../api/countries.api";
 
 const Country = () => {
@@ -17,7 +19,7 @@ const Country = () => {
 
   useEffect(() => {
     loadCountries();
-  }, [dispatch]);
+  }, []);
 
   const handleModal = (e) => {
     e.preventDefault();

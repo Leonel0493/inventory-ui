@@ -4,6 +4,7 @@ import SideBarHeader from "./SideBarHeader";
 import ItemMenu from "./ItemMenu";
 import { useSelector } from "react-redux";
 import ItemTree from "./ItemTree";
+import { Link } from "react-router-dom";
 
 function SideBar() {
   const sidebarState = useSelector((state) => state.sidebar.show);
@@ -12,14 +13,17 @@ function SideBar() {
     {
       id: 1,
       itemName: "Countries",
+      path: "locations/countries",
     },
     {
       id: 2,
       itemName: "Regions",
+      path: "locations/regions",
     },
     {
       id: 3,
       itemName: "Cities",
+      path: "locations/cities",
     },
   ];
 

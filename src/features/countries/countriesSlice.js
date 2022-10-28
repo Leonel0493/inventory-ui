@@ -1,5 +1,4 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { getCountries } from "../../api/countries.api";
 
 const initialState = {
   showCountryModal: false,

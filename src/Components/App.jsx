@@ -3,6 +3,9 @@ import SideBar from "./SideBar/SideBar";
 import NavBar from "./NavBar/NavBar";
 import Country from "./Locations/Country/Country";
 import AddCountry from "./Locations/Country/AddCountry";
+import { Route, Routes } from "react-router-dom";
+import Regions from "./Locations/Regions/Regions";
+import AddRegion from "./Locations/Regions/AddRegion";
 
 const App = () => {
   return (
@@ -15,10 +18,14 @@ const App = () => {
             id="content"
             className="w-full h-full flex flex-col overflow-y-auto bg-gray-100"
           >
-            <Country />
+            <Routes>
+              <Route path="locations/countries" element={<Country />} />
+              <Route path="locations/regions" element={<Regions />} />
+            </Routes>
           </div>
         </div>
         <AddCountry />
+        <AddRegion />
       </div>
     </>
   );
