@@ -1,21 +1,18 @@
 import { Form, Formik } from "formik";
 import { useDispatch, useSelector } from "react-redux";
 import { changeRegionModal } from "../../../features/regions/regionsSlice";
+import { saveRegion } from "../../../api/regions.api";
+import swal from "sweetalert";
 
 const AddRegionForm = () => {
   const dispatch = useDispatch();
-  const countries = useSelector((state) => state.countries.countries);
-
-  const handleModal = (e) => {
-    e.preventDefault();
-    dispatch(changeRegionModal("param"));
-  };
+  const countries = useSelector((state) => state.countries.countriesSelect);
 
   return (
     <Formik
       initialValues={{
         region: "",
-        idCountry: "",
+        idCountry: 0,
       }}
       onSubmit={async (values, actions) => {
         const region = {
@@ -24,7 +21,14 @@ const AddRegionForm = () => {
           createdBy: "leon04",
         };
 
-        console.log(region);
+        try {
+          const resp = saveRegion(region);
+          dispatch(changeRegionModal(resp));
+          swal("Good job!", "You saved a country!", "success");
+          actions.resetForm();
+        } catch (error) {
+          console.log(error);
+        }
       }}
     >
       {({ handleChange, handleSubmit, values }) => (
@@ -53,7 +57,9 @@ const AddRegionForm = () => {
                 onChange={handleChange}
               >
                 {countries.map((country) => (
-                  <option value={country.idCountry}>{country.Country}</option>
+                  <option key={country.idCountry} value={country.idCountry}>
+                    {country.Country}
+                  </option>
                 ))}
               </select>
             </div>

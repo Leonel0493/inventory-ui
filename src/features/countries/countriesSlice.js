@@ -3,6 +3,7 @@ import { createSlice } from "@reduxjs/toolkit";
 const initialState = {
   showCountryModal: false,
   countries: [],
+  countriesSelect: [],
 };
 
 export const countriesSlice = createSlice({
@@ -18,8 +19,15 @@ export const countriesSlice = createSlice({
         countries: action.payload,
       };
     },
+    getCountryForSelect: (state, action) => {
+      return {
+        ...state,
+        countriesSelect: action.payload,
+      };
+    },
   },
 });
 
-export const { changeCountryModal, getAllCountries } = countriesSlice.actions;
+export const { changeCountryModal, getAllCountries, getCountryForSelect } =
+  countriesSlice.actions;
 export default countriesSlice.reducer;

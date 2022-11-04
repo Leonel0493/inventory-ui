@@ -12,7 +12,7 @@ const regionsSlice = createSlice({
     changeRegionModal: (state) => {
       state.showModal = !state.showModal;
     },
-    getAllRegions: (state, action) => {
+    loadRegions: (state, action) => {
       return {
         ...state,
         regions: action.payload,
@@ -21,5 +21,5 @@ const regionsSlice = createSlice({
   },
 });
 
-export const { changeRegionModal, getAllRegions } = regionsSlice.actions;
+export const { changeRegionModal, loadRegions } = regionsSlice.actions;
 export default regionsSlice.reducer;

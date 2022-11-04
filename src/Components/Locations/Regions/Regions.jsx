@@ -1,10 +1,25 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCirclePlus } from "@fortawesome/free-solid-svg-icons";
-import { useDispatch } from "react-redux";
-import { changeRegionModal } from "../../../features/regions/regionsSlice";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  changeRegionModal,
+  loadRegions,
+} from "../../../features/regions/regionsSlice";
+import { getAllRegions } from "../../../api/regions.api";
+import { useEffect } from "react";
 
 const Regions = () => {
+  const regions = useSelector((state) => state.regions.regions);
   const dispatch = useDispatch();
+
+  const loadAllRegions = async () => {
+    const resp = await getAllRegions();
+    dispatch(loadRegions(resp.data));
+  };
+
+  useEffect(() => {
+    loadAllRegions();
+  }, []);
 
   const handleModal = (e) => {
     e.preventDefault();
@@ -44,15 +59,41 @@ const Regions = () => {
               </tr>
             </thead>
             <tbody>
-              <tr className="bg-white border-b dark:bg-gray-900 dark:border-gray-700">
-                <th
-                  scope="row"
-                  className="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white"
-                ></th>
-                <td className="py-4 px-6"></td>
-                <td className="py-4 px-6"></td>
-                <td className="py-4 px-6"></td>
-              </tr>
+              {regions.length === 0 ? (
+                <tr className="bg-white border-b dark:bg-gray-900 dark:border-gray-700">
+                  <th
+                    scope="row"
+                    className="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white"
+                  ></th>
+                  <td className="py-4 px-6"></td>
+                  <td className="py-4 px-6"></td>
+                  <td className="py-4 px-6"></td>
+                </tr>
+              ) : (
+                regions.map((region) => (
+                  <tr
+                    key={region.idCountryDepartment}
+                    className="bg-white border-b dark:bg-gray-900 dark:border-gray-700"
+                  >
+                    <th
+                      scope="row"
+                      className="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white"
+                    >
+                      {region.idCountryDepartment}
+                    </th>
+                    <td className="py-4 px-6">{region.Department}</td>
+                    <td className="py-4 px-6">{region.idCountry}</td>
+                    <td className="py-4 px-6">
+                      <a
+                        href="/"
+                        className="font-medium text-blue-600 dark:text-blue-500 hover:underline"
+                      >
+                        Edit
+                      </a>
+                    </td>
+                  </tr>
+                ))
+              )}
             </tbody>
           </table>
         </div>

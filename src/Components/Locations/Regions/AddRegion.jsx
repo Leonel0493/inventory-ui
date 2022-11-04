@@ -2,11 +2,23 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCircleXmark } from "@fortawesome/free-solid-svg-icons";
 import { useDispatch, useSelector } from "react-redux";
 import { changeRegionModal } from "../../../features/regions/regionsSlice";
+import { getCountryForSelect } from "../../../features/countries/countriesSlice";
+import { getCountrySelect } from "../../../api/countries.api";
 import AddRegionForm from "./AddRegionForm";
+import { useEffect } from "react";
 
 const AddRegion = () => {
   const dispatch = useDispatch();
   const modalState = useSelector((state) => state.regions.showModal);
+
+  const loadCountries = async () => {
+    const resp = await getCountrySelect();
+    dispatch(getCountryForSelect(resp.data));
+  };
+
+  useEffect(() => {
+    loadCountries();
+  }, []);
 
   const handleModal = (e) => {
     e.preventDefault();
